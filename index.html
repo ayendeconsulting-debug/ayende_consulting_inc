@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayende Consulting Inc | CRM Software Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-blue: #0a1e3d;
+            --medium-blue: #1e3a5f;
+            --light-blue: #4a90e2;
+            --bright-blue: #60a5fa;
+            --dark-grey: #2d3748;
+            --light-grey: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--bright-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--bright-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 30, 61, 0.92) 0%, rgba(30, 77, 139, 0.90) 50%, rgba(37, 99, 184, 0.88) 100%),
+                        url('hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: 150px 2rem 100px;
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--bright-blue);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--bright-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--light-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Certifications Badge */
+        .certifications {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2.5rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            display: inline-block;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .certifications h3 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: none;
+            font-size: 1.2rem;
+        }
+        
+        .certifications p {
+            text-shadow: none;
+            opacity: 0.9;
+        }
+
+        .logo-container {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 2rem;
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+            background: var(--light-grey);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(10, 30, 61, 0.3);
+            border: 5px solid var(--light-blue);
+        }
+        
+        .about-image::after {
+            content: '👤 Professional Headshot';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--dark-grey);
+            font-size: 1.2rem;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .about-image img[src=""],
+        .about-image img:not([src]) {
+            opacity: 0;
+        }
+        
+        .about-image img[src=""]:after,
+        .about-image img:not([src]):after {
+            opacity: 1;
+        }
+
+        .about-text h2 {
+            color: var(--dark-blue);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text .intro {
+            font-size: 1.2rem;
+            color: var(--dark-grey);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .credentials {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .credential-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: var(--light-grey);
+            border-radius: 10px;
+            border-left: 4px solid var(--light-blue);
+            transition: all 0.3s;
+        }
+
+        .credential-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--bright-blue);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .credential-item h4 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .credential-item p {
+            color: var(--dark-grey);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .philosophy {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--dark-blue);
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
+            border-radius: 10px;
+            border-left: 4px solid var(--bright-blue);
+            margin-top: 2rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 2rem;
+            background: var(--light-grey);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 3rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--dark-grey);
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 5px solid var(--light-blue);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.3);
+            border-left-color: var(--bright-blue);
+        }
+
+        .service-card h3 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 2rem;
+            background: var(--white);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--bright-blue) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-card:hover::before {
+            opacity: 1;
+        }
+
+        .portfolio-card:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--bright-blue);
+        }
+
+        .portfolio-card:hover h3 {
+            color: var(--white);
+        }
+
+        .impact {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--bright-blue);
+        }
+
+        .portfolio-card:hover .impact {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+        }
+
+        /* Industries Section */
+        .industries {
+            padding: 100px 2rem;
+            background: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .industries .section-title {
+            color: var(--white);
+        }
+
+        .industries-list {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .industry-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .industry-item:hover {
+            background: var(--bright-blue);
+            transform: translateY(-5px);
+            border-color: var(--white);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 2rem;
+            background: var(--light-grey);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.3);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--light-blue);
+        }
+
+        .featured-badge {
+            background: var(--light-blue);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+            color: var(--white);
+        }
+
+        .pricing-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            color: var(--bright-blue);
+            font-size: 1rem;
+        }
+
+        .pricing-body {
+            padding: 2rem;
+        }
+
+        .price-display {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--light-grey);
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+        }
+
+        .price-period {
+            font-size: 1.2rem;
+            color: var(--dark-grey);
+        }
+
+        .price-label {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light-blue);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--light-grey);
+            color: var(--dark-grey);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--light-blue);
+            font-weight: bold;
+        }
+
+        .pricing-note {
+            text-align: center;
+            color: var(--dark-grey);
+            font-style: italic;
+            font-size: 0.95rem;
+            padding: 1rem;
+            background: rgba(74, 144, 226, 0.05);
+            border-radius: 8px;
+        }
+
+        .pricing-cta {
+            text-align: center;
+            padding: 3rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 2rem;
+            background: var(--light-grey);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--dark-grey);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--light-blue);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--bright-blue);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image img {
+                max-width: 350px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .industries-list {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo-container">
+                <svg width="220" height="50" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
+                    <defs>
+                        <linearGradient id="nav-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <filter id="nav-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                            <feOffset dx="0" dy="2" result="offsetblur"/>
+                            <feComponentTransfer>
+                                <feFuncA type="linear" slope="0.4"/>
+                            </feComponentTransfer>
+                            <feMerge>
+                                <feMergeNode/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <g filter="url(#nav-shadow)">
+                        <path d="M 8 38 L 22 8 L 36 38 L 30 38 L 27 30 L 17 30 L 14 38 Z M 19 22 L 25 22 L 22 13 Z" 
+                              fill="url(#nav-gradient)"/>
+                    </g>
+                    
+                    <rect x="8" y="41" width="28" height="2.5" fill="#93c5fd" rx="1.25"/>
+                    
+                    <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#ffffff">
+                        AYENDE
+                    </text>
+                    <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#93c5fd" letter-spacing="1.5" font-weight="600">
+                        CONSULTING INC
+                    </text>
+                </svg>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#industries">Industries</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="coming-soon.html" style="color: var(--bright-blue);">Client Portal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>AYENDE CONSULTING INC</h1>
+        <p class="tagline">CRM Software Solutions</p>
+        <p>Transforming businesses through scalable web apps, mobile solutions, and cloud innovations. We design to scale, enhance, and drive measurable results.</p>
+        
+        <p style="margin-top: 1.5rem; font-size: 1.1rem; opacity: 0.9;">
+            <strong>Flexible Ownership:</strong> Purchase solutions outright or subscribe with our monthly plans
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="#contact" class="btn btn-primary">Start Your Project</a>
+            <a href="#portfolio" class="btn btn-secondary">View Our Work</a>
+        </div>
+
+        <div class="certifications">
+            <h3>Certified Salesforce Architect</h3>
+            <p>Multi-Certified Salesforce Professional</p>
+        </div>
+    </section>
+
+    <!-- About Section with Profile -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="professional-headshot.png" alt="Professional headshot">
+                </div>
+                <div class="about-text">
+                    <h2>Meet Your Technology Partner</h2>
+                    <p class="intro">With over two decades in the technology industry, Ayende Consulting is built on a foundation of deep technical expertise and strategic insight. From my years working as a software engineer to evolving into a trusted architect and consultant, I deliver solutions that are both technically sound and aligned with business goals.</p>
+                    
+                    <h3 style="color: var(--bright-blue); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">Who We Are</h3>
+                    <p>Ayende Consulting is more than a software firm — we are your long-term technology partner. We specialize in custom software development and Salesforce architecture. Our mission is to help organizations transform operations, elevate customer engagement, and scale sustainably through high-impact technology.</p>
+                    
+                    <h3 style="color: var(--bright-blue); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">Our Promise</h3>
+                    <div class="credentials">
+                        <div class="credential-item">
+                            <div>
+                                <h4>Technical Excellence</h4>
+                                <p>With roots in full-stack development and hands-on engineering, I apply rigorous standards in code quality, architecture, performance, and security.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="credential-item">
+                            <div>
+                                <h4>Business Mindset</h4>
+                                <p>Technology should serve clear business outcomes. I blend technical decisions with commercial sense to drive efficiency, growth, and ROI.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="credential-item">
+                            <div>
+                                <h4>Longevity and Support</h4>
+                                <p>Over 20 years in tech means I've seen trends come and go. My focus is on robust, maintainable solutions, not on chasing fads.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="credential-item">
+                            <div>
+                                <h4>Client Partnership</h4>
+                                <p>I believe in transparency, collaboration, and accountability. You'll always know where we are in a project, what decisions are being made, and how your investment is working.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--bright-blue); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">My Journey</h3>
+                    <p>I spent many years in the trenches as a software engineer — building, debugging, scaling systems, and solving real engineering challenges. Over time, I expanded into architecture and consulting roles, designing systems from end to end, advising clients on technology strategy, and leading implementations across multiple domains. That combination of hands-on coding plus strategic planning gives me a unique perspective I bring to every engagement.</p>
+                    
+                    <h3 style="color: var(--bright-blue); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem;">Why Choose Ayende Consulting</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--bright-blue);">✓</span>
+                            A track record of delivering solutions that drive measurable impact
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--bright-blue);">✓</span>
+                            End-to-end capability: from coding and architecture through deployment and support
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--bright-blue);">✓</span>
+                            A blend of engineering discipline with business insight
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--bright-blue);">✓</span>
+                            Focus on maintainability and future growth, not quick fixes
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--bright-blue);">✓</span>
+                            A partner you can trust to invest in your success
+                        </li>
+                    </ul>
+                    
+                    <p class="philosophy" style="margin-top: 2rem;">"Let's build something that lasts. I don't just build software—I design solutions that scale businesses, enhance operations, and drive measurable results."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">What We Do</h2>
+            <p class="section-subtitle">Comprehensive technology solutions that drive business transformation</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Custom Software Development</h3>
+                    <p>Web, mobile, and cloud-native solutions tailored to your business requirements. From concept to deployment, we build applications that solve real problems and scale with your growth.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Salesforce Architecture & Implementation</h3>
+                    <p>From strategy and design to integration, customization, and governance. Expert Salesforce solutions that maximize your CRM investment and transform customer engagement.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>CRM & Customer Systems</h3>
+                    <p>Custom CRM platforms that make data actionable, automate workflows, and improve relationships. Solutions designed to streamline operations and boost revenue.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Cloud Infrastructure & Migration</h3>
+                    <p>Modernizing infrastructure, adopting scalable practices, and optimizing costs. Seamless cloud migrations that reduce operational overhead and improve performance.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Technology Strategy & Advisory</h3>
+                    <p>Roadmaps, audits, and consulting to align your tech stack with your vision. Strategic guidance that ensures your technology investments drive measurable business outcomes.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Customer Database & Licensing Management</h3>
+                    <p>Comprehensive customer database solutions with individual dashboards and flexible licensing pricing models for CRM solutions, enabling efficient customer management and revenue tracking.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Business Enhancement</h3>
+                    <p>Strategic technology consulting to identify opportunities, optimize processes, and scale your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Proven Results</h2>
+            <p class="section-subtitle">Real solutions delivering measurable impact</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-content">
+                        <h3>Local Store CRM System</h3>
+                        <p>Developed a comprehensive CRM solution that streamlined customer management, inventory tracking, and sales analytics for a growing retail business.</p>
+                        <div class="impact">Enhanced customer retention | Improved operational efficiency</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-content">
+                        <h3>Bank Referral Management System</h3>
+                        <p>Engineered an intelligent referral code management platform that automated tracking, reduced manual processes, and optimized campaign performance.</p>
+                        <div class="impact">Saved $10M annually in operations costs</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-content">
+                        <h3>Family Communication App</h3>
+                        <p>Created an innovative mobile application focused on strengthening family bonds through seamless communication, shared calendars, and collaborative features.</p>
+                        <div class="impact">Improved family bonding & connectivity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="industries" class="industries">
+        <div class="container">
+            <h2 class="section-title">Industries We Serve</h2>
+            <div class="industries-list">
+                <div class="industry-item">Retail</div>
+                <div class="industry-item">Wholesale</div>
+                <div class="industry-item">Startups</div>
+                <div class="industry-item">Financial Institutions</div>
+                <div class="industry-item">Insurance</div>
+                <div class="industry-item">E-commerce</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Flexible Pricing Models</h2>
+            <p class="section-subtitle">Choose the ownership model that works best for your business</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Outright Purchase</h3>
+                        <p class="pricing-subtitle">Own Your Solution</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="price-display">
+                            <span class="price-label">Custom Quote</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Full ownership of source code</li>
+                            <li>One-time payment</li>
+                            <li>No recurring fees</li>
+                            <li>Lifetime license</li>
+                            <li>Complete customization rights</li>
+                            <li>Optional maintenance packages</li>
+                        </ul>
+                        <p class="pricing-note">Perfect for enterprises and organizations seeking complete control</p>
+                    </div>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Subscription Model</h3>
+                        <p class="pricing-subtitle">Pay As You Grow</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="price-display">
+                            <span class="price-amount">Starting at $499</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Monthly or annual billing</li>
+                            <li>Regular updates & improvements</li>
+                            <li>Ongoing technical support</li>
+                            <li>Cloud hosting included</li>
+                            <li>Security patches & maintenance</li>
+                            <li>Scale up or down anytime</li>
+                        </ul>
+                        <p class="pricing-note">Ideal for startups and growing businesses</p>
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Hybrid Model</h3>
+                        <p class="pricing-subtitle">Best of Both Worlds</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="price-display">
+                            <span class="price-label">Custom Package</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Partial ownership options</li>
+                            <li>Reduced subscription rates</li>
+                            <li>Phased payment structure</li>
+                            <li>Flexible upgrade paths</li>
+                            <li>Customized to your budget</li>
+                            <li>Long-term partnership focus</li>
+                        </ul>
+                        <p class="pricing-note">Tailored solutions for unique business needs</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricing-cta">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Not sure which model fits your needs?</p>
+                <a href="#contact" class="btn btn-primary">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title">Let's Build Something Great</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Ready to scale your business with custom software solutions? Get in touch for consultations, project inquiries, or partnerships.</p>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">I'm interested in *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="project">Project Inquiry</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="salesforce">Salesforce Solutions</option>
+                            <option value="crm">Custom CRM</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Tell us about your project *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+
+                <p style="margin-top: 2rem; font-size: 1.1rem;">
+                    Or <a href="#" style="color: var(--light-blue); font-weight: 600;">schedule a call</a> directly
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="font-size: 1.2rem; font-weight: 600;">AYENDE CONSULTING INC</p>
+            <p>CRM Software Solutions | Certified Salesforce Architect</p>
+            <p>&copy; 2025 Ayende Consulting Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
