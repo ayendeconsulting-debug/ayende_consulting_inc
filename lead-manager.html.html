@@ -13,17 +13,15 @@
     
     <style>
         :root {
-            /* Modern Gradient Color Palette */
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --warning-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
-            
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #4facfe;
+            /* Dark Blue, Light Blue & White Theme */
+            --dark-blue: #0a1e3d;
+            --medium-blue: #1e3a5f;
+            --light-blue: #4a90e2;
             --bright-blue: #60a5fa;
+            --very-light-blue: #dbeafe;
+            --white: #ffffff;
+            
+            /* Supporting Colors */
             --success-color: #10b981;
             --warning-color: #f59e0b;
             --danger-color: #ef4444;
@@ -31,17 +29,16 @@
             --border-color: #e2e8f0;
             --text-dark: #1e293b;
             --text-light: #64748b;
-            --white: #ffffff;
             
-            /* Glass Morphism */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.18);
+            /* Gradients */
+            --primary-gradient: linear-gradient(135deg, #0a1e3d 0%, #1e3a5f 100%);
+            --accent-gradient: linear-gradient(135deg, #4a90e2 0%, #60a5fa 100%);
             
             /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.08);
-            --shadow-md: 0 4px 16px rgba(102, 126, 234, 0.12);
-            --shadow-lg: 0 8px 32px rgba(102, 126, 234, 0.16);
-            --shadow-hover: 0 12px 40px rgba(102, 126, 234, 0.24);
+            --shadow-sm: 0 2px 8px rgba(10, 30, 61, 0.08);
+            --shadow-md: 0 4px 16px rgba(10, 30, 61, 0.12);
+            --shadow-lg: 0 8px 32px rgba(10, 30, 61, 0.16);
+            --shadow-hover: 0 12px 40px rgba(74, 144, 226, 0.24);
         }
 
         * {
@@ -52,7 +49,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--light-bg);
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -79,7 +76,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.15) 0%, transparent 70%);
             animation: rotate 30s linear infinite;
         }
 
@@ -89,7 +86,7 @@
         }
 
         .login-box {
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             padding: 3rem;
             border-radius: 24px;
@@ -99,7 +96,7 @@
             text-align: center;
             position: relative;
             z-index: 1;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(74, 144, 226, 0.2);
             animation: fadeInUp 0.6s ease;
         }
 
@@ -127,10 +124,7 @@
         .login-title {
             font-size: 2rem;
             font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--dark-blue);
             margin-bottom: 0.5rem;
         }
 
@@ -144,7 +138,7 @@
         .btn-login {
             width: 100%;
             padding: 1rem 2rem;
-            background: var(--primary-gradient);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 12px;
@@ -191,17 +185,15 @@
             to { opacity: 1; }
         }
 
-        /* Header with Glass Effect */
+        /* Header with Dark Blue Theme */
         .header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            color: var(--text-dark);
+            background: var(--primary-gradient);
+            color: var(--white);
             padding: 1.5rem 2rem;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--glass-border);
         }
 
         .header-content {
@@ -218,13 +210,7 @@
             gap: 1rem;
             font-weight: 700;
             font-size: 1.2rem;
-        }
-
-        .logo-text {
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--white);
         }
 
         .user-info {
@@ -235,20 +221,34 @@
 
         .user-name {
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--white);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .user-name:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .avatar {
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: var(--primary-gradient);
+            background: var(--accent-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: white;
             box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
         }
 
         .btn-logout {
@@ -276,7 +276,7 @@
         }
 
         /* ============================================
-           DASHBOARD STATS - MODERN CARDS
+           DASHBOARD STATS - BLUE THEME
            ============================================ */
 
         .stats-grid {
@@ -294,7 +294,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--light-blue);
         }
 
         .stat-card::before {
@@ -304,7 +304,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: var(--primary-gradient);
+            background: var(--accent-gradient);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
@@ -357,23 +357,21 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            box-shadow: var(--shadow-sm);
+            background: var(--very-light-blue);
+            color: var(--light-blue);
         }
 
         .stat-value {
             font-size: 2.5rem;
             font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--dark-blue);
             line-height: 1.2;
             margin-bottom: 0.5rem;
         }
 
         .stat-change {
             font-size: 0.875rem;
-            color: var(--success-color);
+            color: var(--light-blue);
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -409,8 +407,8 @@
         }
 
         .tab:hover {
-            background: var(--light-bg);
-            color: var(--primary-color);
+            background: var(--very-light-blue);
+            color: var(--light-blue);
         }
 
         .tab.active {
@@ -451,8 +449,8 @@
 
         .search-box input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
         }
 
         .search-icon {
@@ -483,8 +481,8 @@
 
         .filter-select:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
         }
 
         .btn {
@@ -501,7 +499,7 @@
         }
 
         .btn-primary {
-            background: var(--primary-gradient);
+            background: var(--accent-gradient);
             color: white;
             box-shadow: var(--shadow-md);
         }
@@ -513,17 +511,79 @@
 
         .btn-secondary {
             background: var(--white);
-            color: var(--text-dark);
+            color: var(--dark-blue);
             border: 2px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+            border-color: var(--light-blue);
+            color: var(--light-blue);
+        }
+
+        /* Quick Status Change Dropdown */
+        .status-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .status-dropdown-btn {
+            padding: 0.4rem 0.8rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .status-dropdown-btn:hover {
+            background: var(--very-light-blue);
+            border-color: var(--light-blue);
+        }
+
+        .status-dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 160px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 8px;
+            z-index: 1;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+        }
+
+        .status-dropdown-content button {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .status-dropdown-content button:hover {
+            background: var(--very-light-blue);
+        }
+
+        .status-dropdown-content button:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .status-dropdown-content button:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .status-dropdown:hover .status-dropdown-content {
+            display: block;
         }
 
         /* ============================================
-           LEADS TABLE - MODERN DESIGN
+           LEADS TABLE
            ============================================ */
 
         .leads-table-container {
@@ -540,18 +600,17 @@
         }
 
         .leads-table thead {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: var(--primary-gradient);
+            color: var(--white);
         }
 
         .leads-table th {
             padding: 1.25rem 1rem;
             text-align: left;
             font-weight: 700;
-            color: var(--text-dark);
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--border-color);
         }
 
         .leads-table td {
@@ -565,11 +624,11 @@
         }
 
         .leads-table tbody tr:hover {
-            background: linear-gradient(90deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
+            background: var(--very-light-blue);
             transform: scale(1.01);
         }
 
-        /* Status Badges with Gradients */
+        /* Status Badges */
         .status-badge {
             display: inline-block;
             padding: 0.4rem 0.9rem;
@@ -582,41 +641,41 @@
         }
 
         .status-new {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: #1e40af;
+            background: var(--very-light-blue);
+            color: var(--dark-blue);
         }
 
         .status-contacted {
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            background: #e0e7ff;
             color: #4338ca;
         }
 
         .status-qualified {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            background: #d1fae5;
             color: #065f46;
         }
 
         .status-proposal {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            background: #fef3c7;
             color: #92400e;
         }
 
         .status-negotiation {
-            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+            background: #fed7aa;
             color: #9a3412;
         }
 
         .status-won {
-            background: var(--success-gradient);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
         }
 
         .status-lost {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            background: #fee2e2;
             color: #991b1b;
         }
 
-        /* Lead Score with Animated Progress */
+        /* Lead Score */
         .lead-score {
             display: inline-flex;
             align-items: center;
@@ -635,31 +694,13 @@
 
         .score-fill {
             height: 100%;
-            background: var(--success-gradient);
+            background: var(--accent-gradient);
             transition: width 0.6s ease;
             border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .score-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
 
         /* ============================================
-           MODAL - GLASS MORPHISM
+           MODAL
            ============================================ */
 
         .modal {
@@ -669,7 +710,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(10, 30, 61, 0.6);
             backdrop-filter: blur(8px);
             z-index: 1000;
             align-items: center;
@@ -709,16 +750,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: var(--primary-gradient);
             border-radius: 20px 20px 0 0;
+            color: var(--white);
         }
 
         .modal-header h2 {
             font-size: 1.75rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-weight: 800;
         }
 
@@ -765,7 +803,7 @@
         .form-group label {
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--dark-blue);
             font-size: 0.875rem;
         }
 
@@ -785,8 +823,8 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
         }
 
         .form-group textarea {
@@ -805,6 +843,42 @@
         }
 
         /* ============================================
+           PROFILE MODAL
+           ============================================ */
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .profile-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .profile-field label {
+            font-weight: 600;
+            color: var(--dark-blue);
+            font-size: 0.875rem;
+        }
+
+        .profile-field input {
+            padding: 0.875rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-field input:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+        }
+
+        /* ============================================
            LOADING & ALERTS
            ============================================ */
 
@@ -816,7 +890,7 @@
 
         .loading-spinner {
             border: 4px solid var(--border-color);
-            border-top: 4px solid var(--primary-color);
+            border-top: 4px solid var(--light-blue);
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -942,17 +1016,17 @@
                 <svg width="200" height="46" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color:#0a1e3d;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4a90e2;stop-opacity:1" />
                         </linearGradient>
                     </defs>
                     <path d="M 8 38 L 22 8 L 36 38 L 30 38 L 27 30 L 17 30 L 14 38 Z M 19 22 L 25 22 L 22 13 Z" 
                           fill="url(#logo-gradient)"/>
-                    <rect x="8" y="41" width="28" height="2.5" fill="#764ba2" rx="1.25"/>
-                    <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#667eea">
+                    <rect x="8" y="41" width="28" height="2.5" fill="#4a90e2" rx="1.25"/>
+                    <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#0a1e3d">
                         AYENDE
                     </text>
-                    <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#764ba2" letter-spacing="1.5" font-weight="600">
+                    <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#4a90e2" letter-spacing="1.5" font-weight="600">
                         CONSULTING INC
                     </text>
                 </svg>
@@ -976,25 +1050,25 @@
                     <svg width="180" height="42" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="logo-gradient-header" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
                             </linearGradient>
                         </defs>
                         <path d="M 8 38 L 22 8 L 36 38 L 30 38 L 27 30 L 17 30 L 14 38 Z M 19 22 L 25 22 L 22 13 Z" 
                               fill="url(#logo-gradient-header)"/>
-                        <rect x="8" y="41" width="28" height="2.5" fill="#764ba2" rx="1.25"/>
-                        <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#667eea">
+                        <rect x="8" y="41" width="28" height="2.5" fill="#60a5fa" rx="1.25"/>
+                        <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#ffffff">
                             AYENDE
                         </text>
-                        <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#764ba2" letter-spacing="1.5" font-weight="600">
+                        <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#60a5fa" letter-spacing="1.5" font-weight="600">
                             CONSULTING INC
                         </text>
                     </svg>
-                    <span class="logo-text">Lead Manager</span>
+                    <span style="color: white;">Lead Manager</span>
                 </div>
                 <div class="user-info">
-                    <span class="user-name" id="userName">Loading...</span>
-                    <div class="avatar" id="userAvatar">A</div>
+                    <span class="user-name" id="userName" onclick="openProfileModal()">Loading...</span>
+                    <div class="avatar" id="userAvatar" onclick="openProfileModal()">A</div>
                     <button class="btn-logout" onclick="logout()">Sign Out</button>
                 </div>
             </div>
@@ -1013,9 +1087,7 @@
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">Total Leads</span>
-                        <div class="stat-icon" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                            📊
-                        </div>
+                        <div class="stat-icon">📊</div>
                     </div>
                     <div class="stat-value" id="totalLeads">0</div>
                     <div class="stat-change">
@@ -1027,9 +1099,7 @@
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">Active Leads</span>
-                        <div class="stat-icon" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
-                            🔥
-                        </div>
+                        <div class="stat-icon">🔥</div>
                     </div>
                     <div class="stat-value" id="activeLeads">0</div>
                     <div class="stat-change">
@@ -1041,9 +1111,7 @@
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">Qualified</span>
-                        <div class="stat-icon" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
-                            ⭐
-                        </div>
+                        <div class="stat-icon">⭐</div>
                     </div>
                     <div class="stat-value" id="qualifiedLeads">0</div>
                     <div class="stat-change">
@@ -1055,9 +1123,7 @@
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">This Month</span>
-                        <div class="stat-icon" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);">
-                            📈
-                        </div>
+                        <div class="stat-icon">📈</div>
                     </div>
                     <div class="stat-value" id="monthLeads">0</div>
                     <div class="stat-change">
@@ -1120,6 +1186,7 @@
                             <th>Source</th>
                             <th>Score</th>
                             <th>Created</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="leadsTableBody">
@@ -1246,25 +1313,60 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>My Profile</h2>
+                <button class="close-modal" onclick="closeProfileModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info">
+                    <div class="profile-field">
+                        <label for="profileFullName">Full Name</label>
+                        <input type="text" id="profileFullName" placeholder="Enter your full name">
+                    </div>
+                    <div class="profile-field">
+                        <label for="profileEmail">Email (from Netlify Identity)</label>
+                        <input type="email" id="profileEmail" readonly style="background: var(--light-bg); cursor: not-allowed;">
+                    </div>
+                    <div class="profile-field">
+                        <label for="profilePhone">Phone</label>
+                        <input type="tel" id="profilePhone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="profile-field">
+                        <label for="profileCompany">Company</label>
+                        <input type="text" id="profileCompany" placeholder="Your company name">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeProfileModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProfile()">
+                    💾 Save Profile
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
-        // CONFIGURATION - ADD YOUR SUPABASE CREDENTIALS HERE
+        // CONFIGURATION
         // ============================================
         const SUPABASE_URL = 'https://xwjkiquvywxnbzrbkedz.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3amtpcXV2eXd4bmJ6cmJrZWR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAzODg2NjQsImV4cCI6MjA3NTk2NDY2NH0.2XtLam4xqbzYIcw0vNB-4BMu93ApoNfG5t9_xCsfFNw';
 
-        // Initialize Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let leads = [];
         let currentLead = null;
         let currentUser = null;
+        let userProfile = null;
 
         // ============================================
         // NETLIFY IDENTITY AUTHENTICATION
         // ============================================
 
-        // Initialize Netlify Identity
         function initNetlifyIdentity() {
             if (window.netlifyIdentity) {
                 window.netlifyIdentity.on('init', user => {
@@ -1295,7 +1397,7 @@
             if (window.netlifyIdentity) {
                 window.netlifyIdentity.open();
             } else {
-                showAlert('Netlify Identity is not configured. Please enable it in your Netlify site settings.', 'error');
+                showAlert('Netlify Identity is not configured.', 'error');
             }
         }
 
@@ -1315,13 +1417,105 @@
             document.getElementById('appContainer').style.display = 'block';
             
             if (currentUser) {
-                const userName = currentUser.user_metadata?.full_name || currentUser.email;
-                const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
-                document.getElementById('userName').textContent = userName;
-                document.getElementById('userAvatar').textContent = initials;
+                loadUserProfile();
             }
             
             loadLeads();
+        }
+
+        // ============================================
+        // PROFILE MANAGEMENT
+        // ============================================
+
+        async function loadUserProfile() {
+            try {
+                // Get user metadata from Netlify Identity
+                const fullName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+                
+                // Try to load profile from Supabase
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .single();
+
+                if (data) {
+                    userProfile = data;
+                    updateUserDisplay(data.full_name || fullName);
+                } else {
+                    // Create new profile
+                    const newProfile = {
+                        user_id: currentUser.id,
+                        email: currentUser.email,
+                        full_name: fullName,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    const { data: created, error: createError } = await supabase
+                        .from('user_profiles')
+                        .insert([newProfile])
+                        .select()
+                        .single();
+                    
+                    if (created) {
+                        userProfile = created;
+                        updateUserDisplay(fullName);
+                    } else {
+                        updateUserDisplay(fullName);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                const fallbackName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+                updateUserDisplay(fallbackName);
+            }
+        }
+
+        function updateUserDisplay(name) {
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = initials;
+        }
+
+        function openProfileModal() {
+            document.getElementById('profileFullName').value = userProfile?.full_name || '';
+            document.getElementById('profileEmail').value = currentUser.email;
+            document.getElementById('profilePhone').value = userProfile?.phone || '';
+            document.getElementById('profileCompany').value = userProfile?.company || '';
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('active');
+        }
+
+        async function saveProfile() {
+            const profileData = {
+                user_id: currentUser.id,
+                email: currentUser.email,
+                full_name: document.getElementById('profileFullName').value,
+                phone: document.getElementById('profilePhone').value,
+                company: document.getElementById('profileCompany').value,
+                updated_at: new Date().toISOString()
+            };
+
+            try {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .upsert([profileData])
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                userProfile = data;
+                updateUserDisplay(data.full_name);
+                showAlert('Profile updated successfully! 🎉', 'success');
+                closeProfileModal();
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                showAlert('Error saving profile: ' + error.message, 'error');
+            }
         }
 
         // ============================================
@@ -1361,7 +1555,7 @@
             if (leadsToRender.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 4rem;">
+                        <td colspan="8" style="text-align: center; padding: 4rem;">
                             <div class="empty-state">
                                 <div class="empty-icon">🔭</div>
                                 <p class="empty-text">No leads yet</p>
@@ -1389,8 +1583,43 @@
                         </div>
                     </td>
                     <td>${formatDate(lead.created_at)}</td>
+                    <td onclick="event.stopPropagation()">
+                        <div class="status-dropdown">
+                            <button class="status-dropdown-btn">Change Status ▼</button>
+                            <div class="status-dropdown-content">
+                                <button onclick="quickStatusChange('${lead.id}', 'new')">New</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'contacted')">Contacted</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'qualified')">Qualified</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'proposal')">Proposal</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'negotiation')">Negotiation</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'won')">Won</button>
+                                <button onclick="quickStatusChange('${lead.id}', 'lost')">Lost</button>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
+        }
+
+        async function quickStatusChange(leadId, newStatus) {
+            try {
+                const { data, error } = await supabase
+                    .from('leads')
+                    .update({ 
+                        lead_status: newStatus,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', leadId)
+                    .select();
+
+                if (error) throw error;
+
+                showAlert(`Status changed to ${newStatus}! 🎉`, 'success');
+                await loadLeads();
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showAlert('Error updating status: ' + error.message, 'error');
+            }
         }
 
         function updateStats() {
@@ -1590,7 +1819,7 @@
             }
         });
 
-        // Real-time subscription to database changes
+        // Real-time subscription
         supabase
             .channel('leads-changes')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, (payload) => {
