@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Management System - Ayende Consulting Inc</title>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Netlify Identity Widget for Authentication -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <style>
+        :root {
+            /* Modern Gradient Color Palette */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warning-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4facfe;
+            --bright-blue: #60a5fa;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            
+            /* Glass Morphism */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.08);
+            --shadow-md: 0 4px 16px rgba(102, 126, 234, 0.12);
+            --shadow-lg: 0 8px 32px rgba(102, 126, 234, 0.16);
+            --shadow-hover: 0 12px 40px rgba(102, 126, 234, 0.24);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           LOGIN SCREEN STYLES
+           ============================================ */
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .login-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--glass-border);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ============================================
+           MAIN APP CONTAINER
+           ============================================ */
+
+        .app-container {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header with Glass Effect */
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-dark);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-logout {
+            padding: 0.6rem 1.2rem;
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* ============================================
+           DASHBOARD STATS - MODERN CARDS
+           ============================================ */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card:nth-child(1) { animation: slideIn 0.4s ease 0.1s both; }
+        .stat-card:nth-child(2) { animation: slideIn 0.4s ease 0.2s both; }
+        .stat-card:nth-child(3) { animation: slideIn 0.4s ease 0.3s both; }
+        .stat-card:nth-child(4) { animation: slideIn 0.4s ease 0.4s both; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            color: var(--success-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* ============================================
+           TABS
+           ============================================ */
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 12px 12px 0 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab {
+            padding: 0.875rem 1.75rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab:hover {
+            background: var(--light-bg);
+            color: var(--primary-color);
+        }
+
+        .tab.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ============================================
+           CONTROLS BAR
+           ============================================ */
+
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-dark);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* ============================================
+           LEADS TABLE - MODERN DESIGN
+           ============================================ */
+
+        .leads-table-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .leads-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leads-table thead {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .leads-table th {
+            padding: 1.25rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .leads-table td {
+            padding: 1.25rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .leads-table tbody tr {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .leads-table tbody tr:hover {
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
+            transform: scale(1.01);
+        }
+
+        /* Status Badges with Gradients */
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-new {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .status-contacted {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            color: #4338ca;
+        }
+
+        .status-qualified {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .status-proposal {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .status-negotiation {
+            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+            color: #9a3412;
+        }
+
+        .status-won {
+            background: var(--success-gradient);
+            color: white;
+        }
+
+        .status-lost {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+        }
+
+        /* Lead Score with Animated Progress */
+        .lead-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+
+        .score-bar {
+            width: 70px;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: var(--success-gradient);
+            transition: width 0.6s ease;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ============================================
+           MODAL - GLASS MORPHISM
+           ============================================ */
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: slideInModal 0.4s ease;
+        }
+
+        @keyframes slideInModal {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.75rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .close-modal {
+            background: var(--danger-color);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.875rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.875rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            background: var(--light-bg);
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* ============================================
+           LOADING & ALERTS
+           ============================================ */
+
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .loading-spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            font-weight: 600;
+            animation: slideInDown 0.4s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .leads-table {
+                font-size: 0.85rem;
+            }
+
+            .leads-table th,
+            .leads-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         LOGIN SCREEN
+         ============================================ -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <svg width="200" height="46" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 8 38 L 22 8 L 36 38 L 30 38 L 27 30 L 17 30 L 14 38 Z M 19 22 L 25 22 L 22 13 Z" 
+                          fill="url(#logo-gradient)"/>
+                    <rect x="8" y="41" width="28" height="2.5" fill="#764ba2" rx="1.25"/>
+                    <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#667eea">
+                        AYENDE
+                    </text>
+                    <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#764ba2" letter-spacing="1.5" font-weight="600">
+                        CONSULTING INC
+                    </text>
+                </svg>
+            </div>
+            <h1 class="login-title">Lead Manager</h1>
+            <p class="login-subtitle">Secure access to your CRM system</p>
+            <button class="btn-login" onclick="openNetlifyIdentity()">
+                🔐 Sign In with Netlify Identity
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MAIN APPLICATION
+         ============================================ -->
+    <div id="appContainer" class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <svg width="180" height="42" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logo-gradient-header" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 8 38 L 22 8 L 36 38 L 30 38 L 27 30 L 17 30 L 14 38 Z M 19 22 L 25 22 L 22 13 Z" 
+                              fill="url(#logo-gradient-header)"/>
+                        <rect x="8" y="41" width="28" height="2.5" fill="#764ba2" rx="1.25"/>
+                        <text x="48" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#667eea">
+                            AYENDE
+                        </text>
+                        <text x="48" y="40" font-family="Arial, sans-serif" font-size="7" fill="#764ba2" letter-spacing="1.5" font-weight="600">
+                            CONSULTING INC
+                        </text>
+                    </svg>
+                    <span class="logo-text">Lead Manager</span>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Loading...</span>
+                    <div class="avatar" id="userAvatar">A</div>
+                    <button class="btn-logout" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Alert Messages -->
+        <div class="container">
+            <div id="alertSuccess" class="alert alert-success"></div>
+            <div id="alertError" class="alert alert-error"></div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Dashboard Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Leads</span>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                            📊
+                        </div>
+                    </div>
+                    <div class="stat-value" id="totalLeads">0</div>
+                    <div class="stat-change">
+                        <span>↗</span>
+                        <span id="totalChange">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Leads</span>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                            🔥
+                        </div>
+                    </div>
+                    <div class="stat-value" id="activeLeads">0</div>
+                    <div class="stat-change">
+                        <span>↗</span>
+                        <span id="activeChange">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Qualified</span>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
+                            ⭐
+                        </div>
+                    </div>
+                    <div class="stat-value" id="qualifiedLeads">0</div>
+                    <div class="stat-change">
+                        <span>↗</span>
+                        <span id="qualifiedChange">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">This Month</span>
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);">
+                            📈
+                        </div>
+                    </div>
+                    <div class="stat-value" id="monthLeads">0</div>
+                    <div class="stat-change">
+                        <span>↗</span>
+                        <span id="monthChange">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="all-leads">All Leads</button>
+                <button class="tab" data-tab="follow-ups">Follow-ups</button>
+            </div>
+
+            <!-- Controls Bar -->
+            <div class="controls-bar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search leads by name, email, or company...">
+                </div>
+                <div class="filters">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="new">New</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="qualified">Qualified</option>
+                        <option value="proposal">Proposal</option>
+                        <option value="negotiation">Negotiation</option>
+                        <option value="won">Won</option>
+                        <option value="lost">Lost</option>
+                    </select>
+                    <select class="filter-select" id="sourceFilter">
+                        <option value="">All Sources</option>
+                        <option value="website">Website</option>
+                        <option value="referral">Referral</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="email">Email</option>
+                        <option value="event">Event</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openAddLeadModal()">
+                        ➕ Add New Lead
+                    </button>
+                </div>
+            </div>
+
+            <!-- Leads Table -->
+            <div class="leads-table-container">
+                <div id="loadingIndicator" class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading leads from database...</p>
+                </div>
+                <table class="leads-table" id="leadsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Source</th>
+                            <th>Score</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <!-- Leads populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Lead Modal -->
+    <div id="leadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Lead</h2>
+                <button class="close-modal" onclick="closeLeadModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="leadForm" onsubmit="saveLead(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="leadSource">Lead Source *</label>
+                            <select id="leadSource" required>
+                                <option value="">Select source...</option>
+                                <option value="website">Website</option>
+                                <option value="referral">Referral</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="email">Email Campaign</option>
+                                <option value="event">Event/Conference</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leadStatus">Status</label>
+                            <select id="leadStatus">
+                                <option value="new">New</option>
+                                <option value="contacted">Contacted</option>
+                                <option value="qualified">Qualified</option>
+                                <option value="proposal">Proposal</option>
+                                <option value="negotiation">Negotiation</option>
+                                <option value="won">Won</option>
+                                <option value="lost">Lost</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="industry">Industry</label>
+                            <input type="text" id="industry" placeholder="e.g., Healthcare, Finance">
+                        </div>
+                        <div class="form-group">
+                            <label for="companySize">Company Size</label>
+                            <select id="companySize">
+                                <option value="">Select size...</option>
+                                <option value="startup">Startup (1-10)</option>
+                                <option value="small">Small (11-50)</option>
+                                <option value="medium">Medium (51-200)</option>
+                                <option value="enterprise">Enterprise (200+)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estimatedBudget">Estimated Budget</label>
+                            <select id="estimatedBudget">
+                                <option value="">Select budget...</option>
+                                <option value="<10k">Less than $10k</option>
+                                <option value="10k-50k">$10k - $50k</option>
+                                <option value="50k-100k">$50k - $100k</option>
+                                <option value="100k+">$100k+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectTimeline">Project Timeline</label>
+                            <select id="projectTimeline">
+                                <option value="">Select timeline...</option>
+                                <option value="immediate">Immediate</option>
+                                <option value="1-3months">1-3 months</option>
+                                <option value="3-6months">3-6 months</option>
+                                <option value="6+months">6+ months</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="projectDescription">Project Description</label>
+                            <textarea id="projectDescription" placeholder="Describe the lead's project needs..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="nextFollowUp">Next Follow-up Date</label>
+                            <input type="date" id="nextFollowUp">
+                        </div>
+                        <div class="form-group">
+                            <label for="leadScore">Lead Score (0-100)</label>
+                            <input type="number" id="leadScore" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeLeadModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="document.getElementById('leadForm').requestSubmit()">
+                    💾 Save Lead
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION - ADD YOUR SUPABASE CREDENTIALS HERE
+        // ============================================
+        const SUPABASE_URL = 'https://xwjkiquvywxnbzrbkedz.supabase.co';  // e.g., 'https://xxxxx.supabase.co'
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3amtpcXV2eXd4bmJ6cmJrZWR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAzODg2NjQsImV4cCI6MjA3NTk2NDY2NH0.2XtLam4xqbzYIcw0vNB-4BMu93ApoNfG5t9_xCsfFNw';  // Your anon/public key
+
+        // Initialize Supabase client
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let leads = [];
+        let currentLead = null;
+        let currentUser = null;
+
+        // ============================================
+        // NETLIFY IDENTITY AUTHENTICATION
+        // ============================================
+
+        // Initialize Netlify Identity
+        function initNetlifyIdentity() {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on('init', user => {
+                    if (user) {
+                        currentUser = user;
+                        showApp();
+                    } else {
+                        showLogin();
+                    }
+                });
+
+                window.netlifyIdentity.on('login', user => {
+                    currentUser = user;
+                    window.netlifyIdentity.close();
+                    showApp();
+                });
+
+                window.netlifyIdentity.on('logout', () => {
+                    currentUser = null;
+                    showLogin();
+                });
+
+                window.netlifyIdentity.init();
+            }
+        }
+
+        function openNetlifyIdentity() {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.open();
+            } else {
+                showAlert('Netlify Identity is not configured. Please enable it in your Netlify site settings.', 'error');
+            }
+        }
+
+        function logout() {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.logout();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
+        }
+
+        function showApp() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+            
+            if (currentUser) {
+                const userName = currentUser.user_metadata?.full_name || currentUser.email;
+                const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('userAvatar').textContent = initials;
+            }
+            
+            loadLeads();
+        }
+
+        // ============================================
+        // DATABASE OPERATIONS
+        // ============================================
+
+        async function loadLeads() {
+            try {
+                const { data, error } = await supabase
+                    .from('leads')
+                    .select('*')
+                    .is('deleted_at', null)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                leads = data || [];
+                renderLeads();
+                updateStats();
+                hideLoading();
+            } catch (error) {
+                console.error('Error loading leads:', error);
+                showAlert('Error loading leads: ' + error.message, 'error');
+                hideLoading();
+            }
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('leadsTable').style.display = 'table';
+        }
+
+        function renderLeads(filteredLeads = null) {
+            const leadsToRender = filteredLeads || leads;
+            const tbody = document.getElementById('leadsTableBody');
+
+            if (leadsToRender.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 4rem;">
+                            <div class="empty-state">
+                                <div class="empty-icon">🔭</div>
+                                <p class="empty-text">No leads yet</p>
+                                <p>Click "Add New Lead" to create your first lead!</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = leadsToRender.map(lead => `
+                <tr onclick="viewLead('${lead.id}')">
+                    <td><strong>${lead.first_name} ${lead.last_name}</strong></td>
+                    <td>${lead.company_name || '-'}</td>
+                    <td>${lead.email}</td>
+                    <td><span class="status-badge status-${lead.lead_status}">${lead.lead_status}</span></td>
+                    <td>${lead.lead_source}</td>
+                    <td>
+                        <div class="lead-score">
+                            <span>${lead.lead_score || 50}</span>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: ${lead.lead_score || 50}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${formatDate(lead.created_at)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStats() {
+            const total = leads.length;
+            const active = leads.filter(l => !['won', 'lost'].includes(l.lead_status)).length;
+            const qualified = leads.filter(l => l.lead_status === 'qualified').length;
+            
+            const thisMonth = new Date();
+            const monthStart = new Date(thisMonth.getFullYear(), thisMonth.getMonth(), 1);
+            const month = leads.filter(l => new Date(l.created_at) >= monthStart).length;
+
+            document.getElementById('totalLeads').textContent = total;
+            document.getElementById('activeLeads').textContent = active;
+            document.getElementById('qualifiedLeads').textContent = qualified;
+            document.getElementById('monthLeads').textContent = month;
+
+            document.getElementById('totalChange').textContent = `${total} total`;
+            document.getElementById('activeChange').textContent = `${active} in progress`;
+            document.getElementById('qualifiedChange').textContent = `${qualified} ready`;
+            document.getElementById('monthChange').textContent = `${month} new this month`;
+        }
+
+        async function saveLead(event) {
+            event.preventDefault();
+
+            const leadData = {
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company_name: document.getElementById('company').value,
+                job_title: document.getElementById('jobTitle').value,
+                lead_source: document.getElementById('leadSource').value,
+                lead_status: document.getElementById('leadStatus').value,
+                lead_score: parseInt(document.getElementById('leadScore').value),
+                industry: document.getElementById('industry').value,
+                company_size: document.getElementById('companySize').value,
+                estimated_budget: document.getElementById('estimatedBudget').value,
+                project_timeline: document.getElementById('projectTimeline').value,
+                project_description: document.getElementById('projectDescription').value,
+                next_follow_up_date: document.getElementById('nextFollowUp').value || null
+            };
+
+            try {
+                if (currentLead) {
+                    const { data, error } = await supabase
+                        .from('leads')
+                        .update(leadData)
+                        .eq('id', currentLead.id)
+                        .select();
+
+                    if (error) throw error;
+                    showAlert('Lead updated successfully! 🎉', 'success');
+                } else {
+                    const { data, error } = await supabase
+                        .from('leads')
+                        .insert([leadData])
+                        .select();
+
+                    if (error) throw error;
+                    showAlert('Lead created successfully! 🎉', 'success');
+                }
+
+                await loadLeads();
+                closeLeadModal();
+            } catch (error) {
+                console.error('Error saving lead:', error);
+                showAlert('Error saving lead: ' + error.message, 'error');
+            }
+        }
+
+        // ============================================
+        // MODAL FUNCTIONS
+        // ============================================
+
+        function openAddLeadModal() {
+            currentLead = null;
+            document.getElementById('modalTitle').textContent = 'Add New Lead';
+            document.getElementById('leadForm').reset();
+            document.getElementById('leadStatus').value = 'new';
+            document.getElementById('leadScore').value = 50;
+            document.getElementById('leadModal').classList.add('active');
+        }
+
+        function closeLeadModal() {
+            document.getElementById('leadModal').classList.remove('active');
+        }
+
+        function viewLead(leadId) {
+            const lead = leads.find(l => l.id === leadId);
+            if (!lead) return;
+            editLead(leadId);
+        }
+
+        function editLead(leadId) {
+            const lead = leads.find(l => l.id === leadId);
+            if (!lead) return;
+
+            currentLead = lead;
+            document.getElementById('modalTitle').textContent = 'Edit Lead';
+            
+            document.getElementById('firstName').value = lead.first_name;
+            document.getElementById('lastName').value = lead.last_name;
+            document.getElementById('email').value = lead.email;
+            document.getElementById('phone').value = lead.phone || '';
+            document.getElementById('company').value = lead.company_name || '';
+            document.getElementById('jobTitle').value = lead.job_title || '';
+            document.getElementById('leadSource').value = lead.lead_source;
+            document.getElementById('leadStatus').value = lead.lead_status;
+            document.getElementById('industry').value = lead.industry || '';
+            document.getElementById('companySize').value = lead.company_size || '';
+            document.getElementById('estimatedBudget').value = lead.estimated_budget || '';
+            document.getElementById('projectTimeline').value = lead.project_timeline || '';
+            document.getElementById('projectDescription').value = lead.project_description || '';
+            document.getElementById('nextFollowUp').value = lead.next_follow_up_date || '';
+            document.getElementById('leadScore').value = lead.lead_score || 50;
+
+            document.getElementById('leadModal').classList.add('active');
+        }
+
+        // ============================================
+        // SEARCH & FILTER
+        // ============================================
+
+        function filterLeads() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const sourceFilter = document.getElementById('sourceFilter').value;
+
+            const filtered = leads.filter(lead => {
+                const matchesSearch = 
+                    lead.first_name.toLowerCase().includes(searchTerm) ||
+                    lead.last_name.toLowerCase().includes(searchTerm) ||
+                    lead.email.toLowerCase().includes(searchTerm) ||
+                    (lead.company_name && lead.company_name.toLowerCase().includes(searchTerm));
+
+                const matchesStatus = !statusFilter || lead.lead_status === statusFilter;
+                const matchesSource = !sourceFilter || lead.lead_source === sourceFilter;
+
+                return matchesSearch && matchesStatus && matchesSource;
+            });
+
+            renderLeads(filtered);
+        }
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+
+        function showAlert(message, type) {
+            const alertElement = type === 'success' ? 
+                document.getElementById('alertSuccess') : 
+                document.getElementById('alertError');
+            
+            alertElement.textContent = message;
+            alertElement.classList.add('show');
+
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+            }, 5000);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initNetlifyIdentity();
+
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Search and filters
+            document.getElementById('searchInput').addEventListener('input', filterLeads);
+            document.getElementById('statusFilter').addEventListener('change', filterLeads);
+            document.getElementById('sourceFilter').addEventListener('change', filterLeads);
+
+            // Close modals when clicking outside
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.classList.remove('active');
+                }
+            }
+        });
+
+        // Real-time subscription to database changes
+        supabase
+            .channel('leads-changes')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, (payload) => {
+                console.log('Change received!', payload);
+                loadLeads();
+            })
+            .subscribe();
+    </script>
+</body>
+</html>
