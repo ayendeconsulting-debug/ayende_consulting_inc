@@ -55,10 +55,7 @@
             overflow-x: hidden;
         }
 
-        /* ============================================
-           LOGIN SCREEN STYLES
-           ============================================ */
-        
+        /* Login Screen */
         .login-container {
             min-height: 100vh;
             display: flex;
@@ -101,24 +98,12 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-logo {
             margin-bottom: 2rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         .login-title {
@@ -147,23 +132,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-login::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-login:hover::before {
-            left: 100%;
         }
 
         .btn-login:hover {
@@ -171,10 +139,7 @@
             box-shadow: var(--shadow-hover);
         }
 
-        /* ============================================
-           MAIN APP CONTAINER
-           ============================================ */
-
+        /* App Container */
         .app-container {
             display: none;
             animation: fadeIn 0.6s ease;
@@ -185,7 +150,7 @@
             to { opacity: 1; }
         }
 
-        /* Header with Dark Blue Theme */
+        /* Header */
         .header {
             background: var(--primary-gradient);
             color: var(--white);
@@ -244,11 +209,6 @@
             color: white;
             box-shadow: var(--shadow-sm);
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.1);
         }
 
         .btn-logout {
@@ -268,17 +228,14 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Main Container */
+        /* Container */
         .container {
             max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
 
-        /* ============================================
-           DASHBOARD STATS - BLUE THEME
-           ============================================ */
-
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -291,47 +248,13 @@
             padding: 2rem;
             border-radius: 16px;
             box-shadow: var(--shadow-sm);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.4s ease;
             border-left: 4px solid var(--light-blue);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--accent-gradient);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .stat-card:hover::before {
-            transform: scaleX(1);
         }
 
         .stat-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
-        }
-
-        .stat-card:nth-child(1) { animation: slideIn 0.4s ease 0.1s both; }
-        .stat-card:nth-child(2) { animation: slideIn 0.4s ease 0.2s both; }
-        .stat-card:nth-child(3) { animation: slideIn 0.4s ease 0.3s both; }
-        .stat-card:nth-child(4) { animation: slideIn 0.4s ease 0.4s both; }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .stat-header {
@@ -346,7 +269,6 @@
             font-size: 0.875rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .stat-icon {
@@ -365,7 +287,6 @@
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--dark-blue);
-            line-height: 1.2;
             margin-bottom: 0.5rem;
         }
 
@@ -373,15 +294,9 @@
             font-size: 0.875rem;
             color: var(--light-blue);
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
         }
 
-        /* ============================================
-           TABS
-           ============================================ */
-
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 0.5rem;
@@ -403,7 +318,6 @@
             color: var(--text-light);
             border-radius: 8px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .tab:hover {
@@ -417,10 +331,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* ============================================
-           CONTROLS BAR
-           ============================================ */
-
+        /* Controls */
         .controls-bar {
             display: flex;
             justify-content: space-between;
@@ -444,7 +355,6 @@
             border-radius: 12px;
             font-size: 0.95rem;
             transition: all 0.3s ease;
-            background: var(--white);
         }
 
         .search-box input:focus {
@@ -459,7 +369,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-light);
-            font-size: 1.2rem;
         }
 
         .filters {
@@ -476,13 +385,11 @@
             background: var(--white);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
         }
 
         .filter-select:focus {
             outline: none;
             border-color: var(--light-blue);
-            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
         }
 
         .btn {
@@ -493,9 +400,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .btn-primary {
@@ -515,83 +419,37 @@
             border: 2px solid var(--border-color);
         }
 
-        .btn-secondary:hover {
-            border-color: var(--light-blue);
-            color: var(--light-blue);
-        }
-
-        /* Quick Status Change Dropdown */
-        .status-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .status-dropdown-btn {
-            padding: 0.4rem 0.8rem;
-            background: transparent;
-            border: 1px solid var(--border-color);
+        /* Status Dropdown - FIXED VERSION */
+        .status-dropdown-select {
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .status-dropdown-btn:hover {
-            background: var(--very-light-blue);
-            border-color: var(--light-blue);
-        }
-
-        .status-dropdown-content {
-            display: none;
-            position: absolute;
             background: white;
-            min-width: 160px;
-            box-shadow: var(--shadow-lg);
-            border-radius: 8px;
-            z-index: 1;
-            top: 100%;
-            right: 0;
-            margin-top: 0.5rem;
-        }
-
-        .status-dropdown-content button {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: none;
-            background: none;
-            text-align: left;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            min-width: 140px;
         }
 
-        .status-dropdown-content button:hover {
-            background: var(--very-light-blue);
+        .status-dropdown-select:hover {
+            border-color: var(--light-blue);
+            background: var(--light-bg);
         }
 
-        .status-dropdown-content button:first-child {
-            border-radius: 8px 8px 0 0;
+        .status-dropdown-select:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
         }
 
-        .status-dropdown-content button:last-child {
-            border-radius: 0 0 8px 8px;
-        }
-
-        .status-dropdown:hover .status-dropdown-content {
-            display: block;
-        }
-
-        /* ============================================
-           LEADS TABLE
-           ============================================ */
-
+        /* Table */
         .leads-table-container {
             background: var(--white);
             border-radius: 16px;
             box-shadow: var(--shadow-md);
             overflow: hidden;
-            animation: fadeIn 0.6s ease;
         }
 
         .leads-table {
@@ -610,7 +468,6 @@
             font-weight: 700;
             font-size: 0.875rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .leads-table td {
@@ -625,7 +482,6 @@
 
         .leads-table tbody tr:hover {
             background: var(--very-light-blue);
-            transform: scale(1.01);
         }
 
         /* Status Badges */
@@ -636,44 +492,15 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-sm);
         }
 
-        .status-new {
-            background: var(--very-light-blue);
-            color: var(--dark-blue);
-        }
-
-        .status-contacted {
-            background: #e0e7ff;
-            color: #4338ca;
-        }
-
-        .status-qualified {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-proposal {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-negotiation {
-            background: #fed7aa;
-            color: #9a3412;
-        }
-
-        .status-won {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-        }
-
-        .status-lost {
-            background: #fee2e2;
-            color: #991b1b;
-        }
+        .status-new { background: var(--very-light-blue); color: var(--dark-blue); }
+        .status-contacted { background: #e0e7ff; color: #4338ca; }
+        .status-qualified { background: #d1fae5; color: #065f46; }
+        .status-proposal { background: #fef3c7; color: #92400e; }
+        .status-negotiation { background: #fed7aa; color: #9a3412; }
+        .status-won { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
+        .status-lost { background: #fee2e2; color: #991b1b; }
 
         /* Lead Score */
         .lead-score {
@@ -689,7 +516,6 @@
             background: var(--border-color);
             border-radius: 10px;
             overflow: hidden;
-            position: relative;
         }
 
         .score-fill {
@@ -699,10 +525,7 @@
             border-radius: 10px;
         }
 
-        /* ============================================
-           MODAL
-           ============================================ */
-
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -715,7 +538,6 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
         }
 
         .modal.active {
@@ -730,18 +552,6 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: var(--shadow-lg);
-            animation: slideInModal 0.4s ease;
-        }
-
-        @keyframes slideInModal {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
 
         .modal-header {
@@ -766,19 +576,12 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: white;
-            padding: 0;
             width: 36px;
             height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .close-modal:hover {
-            transform: rotate(90deg);
-            box-shadow: var(--shadow-md);
         }
 
         .modal-body {
@@ -816,7 +619,6 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
             font-family: inherit;
-            background: var(--white);
         }
 
         .form-group input:focus,
@@ -842,10 +644,7 @@
             border-radius: 0 0 20px 20px;
         }
 
-        /* ============================================
-           PROFILE MODAL
-           ============================================ */
-        
+        /* Profile Modal */
         .profile-info {
             display: flex;
             flex-direction: column;
@@ -869,7 +668,6 @@
             border: 2px solid var(--border-color);
             border-radius: 12px;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
         }
 
         .profile-field input:focus {
@@ -878,10 +676,7 @@
             box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
         }
 
-        /* ============================================
-           LOADING & ALERTS
-           ============================================ */
-
+        /* Loading & Alerts */
         .loading {
             text-align: center;
             padding: 4rem 2rem;
@@ -909,18 +704,6 @@
             margin-bottom: 1rem;
             display: none;
             font-weight: 600;
-            animation: slideInDown 0.4s ease;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .alert.show {
@@ -939,7 +722,6 @@
             border-left: 4px solid #ef4444;
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -959,57 +741,17 @@
             font-weight: 600;
         }
 
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                max-width: none;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .user-info {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .leads-table {
-                font-size: 0.85rem;
-            }
-
-            .leads-table th,
-            .leads-table td {
-                padding: 0.75rem 0.5rem;
-            }
+            .container { padding: 0 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .controls-bar { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: none; }
         }
     </style>
 </head>
 <body>
-    <!-- ============================================
-         LOGIN SCREEN
-         ============================================ -->
+    <!-- Login Screen -->
     <div id="loginContainer" class="login-container">
         <div class="login-box">
             <div class="login-logo">
@@ -1039,11 +781,8 @@
         </div>
     </div>
 
-    <!-- ============================================
-         MAIN APPLICATION
-         ============================================ -->
+    <!-- Main App -->
     <div id="appContainer" class="app-container">
-        <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <div class="logo-container">
@@ -1074,15 +813,11 @@
             </div>
         </header>
 
-        <!-- Alert Messages -->
         <div class="container">
             <div id="alertSuccess" class="alert alert-success"></div>
             <div id="alertError" class="alert alert-error"></div>
-        </div>
 
-        <!-- Main Container -->
-        <div class="container">
-            <!-- Dashboard Stats -->
+            <!-- Stats -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-header">
@@ -1090,46 +825,31 @@
                         <div class="stat-icon">📊</div>
                     </div>
                     <div class="stat-value" id="totalLeads">0</div>
-                    <div class="stat-change">
-                        <span>↗</span>
-                        <span id="totalChange">Loading...</span>
-                    </div>
+                    <div class="stat-change" id="totalChange">Loading...</div>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">Active Leads</span>
                         <div class="stat-icon">🔥</div>
                     </div>
                     <div class="stat-value" id="activeLeads">0</div>
-                    <div class="stat-change">
-                        <span>↗</span>
-                        <span id="activeChange">Loading...</span>
-                    </div>
+                    <div class="stat-change" id="activeChange">Loading...</div>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">Qualified</span>
                         <div class="stat-icon">⭐</div>
                     </div>
                     <div class="stat-value" id="qualifiedLeads">0</div>
-                    <div class="stat-change">
-                        <span>↗</span>
-                        <span id="qualifiedChange">Loading...</span>
-                    </div>
+                    <div class="stat-change" id="qualifiedChange">Loading...</div>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-label">This Month</span>
                         <div class="stat-icon">📈</div>
                     </div>
                     <div class="stat-value" id="monthLeads">0</div>
-                    <div class="stat-change">
-                        <span>↗</span>
-                        <span id="monthChange">Loading...</span>
-                    </div>
+                    <div class="stat-change" id="monthChange">Loading...</div>
                 </div>
             </div>
 
@@ -1139,11 +859,11 @@
                 <button class="tab" data-tab="follow-ups">Follow-ups</button>
             </div>
 
-            <!-- Controls Bar -->
+            <!-- Controls -->
             <div class="controls-bar">
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" placeholder="Search leads by name, email, or company...">
+                    <input type="text" id="searchInput" placeholder="Search leads...">
                 </div>
                 <div class="filters">
                     <select class="filter-select" id="statusFilter">
@@ -1170,11 +890,11 @@
                 </div>
             </div>
 
-            <!-- Leads Table -->
+            <!-- Table -->
             <div class="leads-table-container">
                 <div id="loadingIndicator" class="loading">
                     <div class="loading-spinner"></div>
-                    <p>Loading leads from database...</p>
+                    <p>Loading leads...</p>
                 </div>
                 <table class="leads-table" id="leadsTable" style="display: none;">
                     <thead>
@@ -1189,15 +909,13 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="leadsTableBody">
-                        <!-- Leads populated dynamically -->
-                    </tbody>
+                    <tbody id="leadsTableBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Add/Edit Lead Modal -->
+    <!-- Lead Modal -->
     <div id="leadModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1224,7 +942,7 @@
                             <input type="tel" id="phone">
                         </div>
                         <div class="form-group">
-                            <label for="company">Company Name</label>
+                            <label for="company">Company</label>
                             <input type="text" id="company">
                         </div>
                         <div class="form-group">
@@ -1232,15 +950,14 @@
                             <input type="text" id="jobTitle">
                         </div>
                         <div class="form-group">
-                            <label for="leadSource">Lead Source *</label>
+                            <label for="leadSource">Source *</label>
                             <select id="leadSource" required>
-                                <option value="">Select source...</option>
+                                <option value="">Select...</option>
                                 <option value="website">Website</option>
                                 <option value="referral">Referral</option>
                                 <option value="linkedin">LinkedIn</option>
-                                <option value="email">Email Campaign</option>
-                                <option value="event">Event/Conference</option>
-                                <option value="other">Other</option>
+                                <option value="email">Email</option>
+                                <option value="event">Event</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1257,12 +974,12 @@
                         </div>
                         <div class="form-group">
                             <label for="industry">Industry</label>
-                            <input type="text" id="industry" placeholder="e.g., Healthcare, Finance">
+                            <input type="text" id="industry">
                         </div>
                         <div class="form-group">
                             <label for="companySize">Company Size</label>
                             <select id="companySize">
-                                <option value="">Select size...</option>
+                                <option value="">Select...</option>
                                 <option value="startup">Startup (1-10)</option>
                                 <option value="small">Small (11-50)</option>
                                 <option value="medium">Medium (51-200)</option>
@@ -1270,19 +987,19 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="estimatedBudget">Estimated Budget</label>
+                            <label for="estimatedBudget">Budget</label>
                             <select id="estimatedBudget">
-                                <option value="">Select budget...</option>
-                                <option value="<10k">Less than $10k</option>
-                                <option value="10k-50k">$10k - $50k</option>
-                                <option value="50k-100k">$50k - $100k</option>
+                                <option value="">Select...</option>
+                                <option value="<10k">&lt;$10k</option>
+                                <option value="10k-50k">$10k-$50k</option>
+                                <option value="50k-100k">$50k-$100k</option>
                                 <option value="100k+">$100k+</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="projectTimeline">Project Timeline</label>
+                            <label for="projectTimeline">Timeline</label>
                             <select id="projectTimeline">
-                                <option value="">Select timeline...</option>
+                                <option value="">Select...</option>
                                 <option value="immediate">Immediate</option>
                                 <option value="1-3months">1-3 months</option>
                                 <option value="3-6months">3-6 months</option>
@@ -1290,15 +1007,15 @@
                             </select>
                         </div>
                         <div class="form-group full-width">
-                            <label for="projectDescription">Project Description</label>
-                            <textarea id="projectDescription" placeholder="Describe the lead's project needs..."></textarea>
+                            <label for="projectDescription">Description</label>
+                            <textarea id="projectDescription"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="nextFollowUp">Next Follow-up Date</label>
+                            <label for="nextFollowUp">Follow-up Date</label>
                             <input type="date" id="nextFollowUp">
                         </div>
                         <div class="form-group">
-                            <label for="leadScore">Lead Score (0-100)</label>
+                            <label for="leadScore">Score (0-100)</label>
                             <input type="number" id="leadScore" min="0" max="100" value="50">
                         </div>
                     </div>
@@ -1307,7 +1024,7 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeLeadModal()">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('leadForm').requestSubmit()">
-                    💾 Save Lead
+                    💾 Save
                 </button>
             </div>
         </div>
@@ -1324,35 +1041,30 @@
                 <div class="profile-info">
                     <div class="profile-field">
                         <label for="profileFullName">Full Name</label>
-                        <input type="text" id="profileFullName" placeholder="Enter your full name">
+                        <input type="text" id="profileFullName">
                     </div>
                     <div class="profile-field">
-                        <label for="profileEmail">Email (from Netlify Identity)</label>
-                        <input type="email" id="profileEmail" readonly style="background: var(--light-bg); cursor: not-allowed;">
+                        <label for="profileEmail">Email (read-only)</label>
+                        <input type="email" id="profileEmail" readonly style="background: var(--light-bg);">
                     </div>
                     <div class="profile-field">
                         <label for="profilePhone">Phone</label>
-                        <input type="tel" id="profilePhone" placeholder="Enter your phone number">
+                        <input type="tel" id="profilePhone">
                     </div>
                     <div class="profile-field">
                         <label for="profileCompany">Company</label>
-                        <input type="text" id="profileCompany" placeholder="Your company name">
+                        <input type="text" id="profileCompany">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeProfileModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveProfile()">
-                    💾 Save Profile
-                </button>
+                <button class="btn btn-primary" onclick="saveProfile()">💾 Save</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // CONFIGURATION
-        // ============================================
         const SUPABASE_URL = 'https://xwjkiquvywxnbzrbkedz.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3amtpcXV2eXd4bmJ6cmJrZWR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAzODg2NjQsImV4cCI6MjA3NTk2NDY2NH0.2XtLam4xqbzYIcw0vNB-4BMu93ApoNfG5t9_xCsfFNw';
 
@@ -1362,49 +1074,34 @@
         let currentLead = null;
         let currentUser = null;
         let userProfile = null;
+        let currentTab = 'all-leads';
 
-        // ============================================
-        // NETLIFY IDENTITY AUTHENTICATION
-        // ============================================
-
+        // Auth
         function initNetlifyIdentity() {
             if (window.netlifyIdentity) {
                 window.netlifyIdentity.on('init', user => {
-                    if (user) {
-                        currentUser = user;
-                        showApp();
-                    } else {
-                        showLogin();
-                    }
+                    if (user) { currentUser = user; showApp(); } 
+                    else { showLogin(); }
                 });
-
                 window.netlifyIdentity.on('login', user => {
                     currentUser = user;
                     window.netlifyIdentity.close();
                     showApp();
                 });
-
                 window.netlifyIdentity.on('logout', () => {
                     currentUser = null;
                     showLogin();
                 });
-
                 window.netlifyIdentity.init();
             }
         }
 
         function openNetlifyIdentity() {
-            if (window.netlifyIdentity) {
-                window.netlifyIdentity.open();
-            } else {
-                showAlert('Netlify Identity is not configured.', 'error');
-            }
+            if (window.netlifyIdentity) window.netlifyIdentity.open();
         }
 
         function logout() {
-            if (window.netlifyIdentity) {
-                window.netlifyIdentity.logout();
-            }
+            if (window.netlifyIdentity) window.netlifyIdentity.logout();
         }
 
         function showLogin() {
@@ -1415,43 +1112,32 @@
         function showApp() {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('appContainer').style.display = 'block';
-            
-            if (currentUser) {
-                loadUserProfile();
-            }
-            
+            if (currentUser) loadUserProfile();
             loadLeads();
         }
 
-        // ============================================
-        // PROFILE MANAGEMENT
-        // ============================================
-
+        // Profile - FIXED VERSION
         async function loadUserProfile() {
             try {
-                // Get user metadata from Netlify Identity
-                const fullName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+                const fallbackName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
                 
-                // Try to load profile from Supabase
                 const { data, error } = await supabase
                     .from('user_profiles')
                     .select('*')
-                    .eq('user_id', currentUser.id)
+                    .eq('email', currentUser.email)  // Changed to email
                     .single();
 
                 if (data) {
                     userProfile = data;
-                    updateUserDisplay(data.full_name || fullName);
+                    updateUserDisplay(data.full_name || fallbackName);
                 } else {
-                    // Create new profile
                     const newProfile = {
                         user_id: currentUser.id,
                         email: currentUser.email,
-                        full_name: fullName,
-                        created_at: new Date().toISOString()
+                        full_name: fallbackName
                     };
                     
-                    const { data: created, error: createError } = await supabase
+                    const { data: created } = await supabase
                         .from('user_profiles')
                         .insert([newProfile])
                         .select()
@@ -1459,15 +1145,12 @@
                     
                     if (created) {
                         userProfile = created;
-                        updateUserDisplay(fullName);
-                    } else {
-                        updateUserDisplay(fullName);
+                        updateUserDisplay(fallbackName);
                     }
                 }
             } catch (error) {
-                console.error('Error loading profile:', error);
-                const fallbackName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
-                updateUserDisplay(fallbackName);
+                console.error('Profile error:', error);
+                updateUserDisplay(currentUser.email.split('@')[0]);
             }
         }
 
@@ -1502,7 +1185,7 @@
             try {
                 const { data, error } = await supabase
                     .from('user_profiles')
-                    .upsert([profileData])
+                    .upsert([profileData], { onConflict: 'email' })  // Key fix!
                     .select()
                     .single();
 
@@ -1510,18 +1193,15 @@
 
                 userProfile = data;
                 updateUserDisplay(data.full_name);
-                showAlert('Profile updated successfully! 🎉', 'success');
+                showAlert('Profile saved! 🎉', 'success');
                 closeProfileModal();
             } catch (error) {
-                console.error('Error saving profile:', error);
-                showAlert('Error saving profile: ' + error.message, 'error');
+                console.error('Error:', error);
+                showAlert('Error: ' + error.message, 'error');
             }
         }
 
-        // ============================================
-        // DATABASE OPERATIONS
-        // ============================================
-
+        // Leads
         async function loadLeads() {
             try {
                 const { data, error } = await supabase
@@ -1533,21 +1213,17 @@
                 if (error) throw error;
 
                 leads = data || [];
-                renderLeads();
+                applyFilters();
                 updateStats();
-                hideLoading();
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('leadsTable').style.display = 'table';
             } catch (error) {
-                console.error('Error loading leads:', error);
+                console.error('Error:', error);
                 showAlert('Error loading leads: ' + error.message, 'error');
-                hideLoading();
             }
         }
 
-        function hideLoading() {
-            document.getElementById('loadingIndicator').style.display = 'none';
-            document.getElementById('leadsTable').style.display = 'table';
-        }
-
+        // FIXED: Working status dropdown
         function renderLeads(filteredLeads = null) {
             const leadsToRender = filteredLeads || leads;
             const tbody = document.getElementById('leadsTableBody');
@@ -1559,7 +1235,7 @@
                             <div class="empty-state">
                                 <div class="empty-icon">🔭</div>
                                 <p class="empty-text">No leads yet</p>
-                                <p>Click "Add New Lead" to create your first lead!</p>
+                                <p>Click "Add New Lead" to get started!</p>
                             </div>
                         </td>
                     </tr>
@@ -1584,41 +1260,39 @@
                     </td>
                     <td>${formatDate(lead.created_at)}</td>
                     <td onclick="event.stopPropagation()">
-                        <div class="status-dropdown">
-                            <button class="status-dropdown-btn">Change Status ▼</button>
-                            <div class="status-dropdown-content">
-                                <button onclick="quickStatusChange('${lead.id}', 'new')">New</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'contacted')">Contacted</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'qualified')">Qualified</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'proposal')">Proposal</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'negotiation')">Negotiation</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'won')">Won</button>
-                                <button onclick="quickStatusChange('${lead.id}', 'lost')">Lost</button>
-                            </div>
-                        </div>
+                        <select 
+                            class="status-dropdown-select" 
+                            onchange="quickStatusChange('${lead.id}', this.value)"
+                        >
+                            <option value="">Change...</option>
+                            <option value="new" ${lead.lead_status === 'new' ? 'selected' : ''}>New</option>
+                            <option value="contacted" ${lead.lead_status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                            <option value="qualified" ${lead.lead_status === 'qualified' ? 'selected' : ''}>Qualified</option>
+                            <option value="proposal" ${lead.lead_status === 'proposal' ? 'selected' : ''}>Proposal</option>
+                            <option value="negotiation" ${lead.lead_status === 'negotiation' ? 'selected' : ''}>Negotiation</option>
+                            <option value="won" ${lead.lead_status === 'won' ? 'selected' : ''}>Won</option>
+                            <option value="lost" ${lead.lead_status === 'lost' ? 'selected' : ''}>Lost</option>
+                        </select>
                     </td>
                 </tr>
             `).join('');
         }
 
         async function quickStatusChange(leadId, newStatus) {
+            if (!newStatus) return;
+            
             try {
-                const { data, error } = await supabase
+                const { error } = await supabase
                     .from('leads')
-                    .update({ 
-                        lead_status: newStatus,
-                        updated_at: new Date().toISOString()
-                    })
-                    .eq('id', leadId)
-                    .select();
+                    .update({ lead_status: newStatus })
+                    .eq('id', leadId);
 
                 if (error) throw error;
 
-                showAlert(`Status changed to ${newStatus}! 🎉`, 'success');
+                showAlert(`Status: ${newStatus}! 🎉`, 'success');
                 await loadLeads();
             } catch (error) {
-                console.error('Error updating status:', error);
-                showAlert('Error updating status: ' + error.message, 'error');
+                showAlert('Error: ' + error.message, 'error');
             }
         }
 
@@ -1639,7 +1313,7 @@
             document.getElementById('totalChange').textContent = `${total} total`;
             document.getElementById('activeChange').textContent = `${active} in progress`;
             document.getElementById('qualifiedChange').textContent = `${qualified} ready`;
-            document.getElementById('monthChange').textContent = `${month} new this month`;
+            document.getElementById('monthChange').textContent = `${month} this month`;
         }
 
         async function saveLead(event) {
@@ -1665,35 +1339,26 @@
 
             try {
                 if (currentLead) {
-                    const { data, error } = await supabase
+                    const { error } = await supabase
                         .from('leads')
                         .update(leadData)
-                        .eq('id', currentLead.id)
-                        .select();
-
+                        .eq('id', currentLead.id);
                     if (error) throw error;
-                    showAlert('Lead updated successfully! 🎉', 'success');
+                    showAlert('Lead updated! 🎉', 'success');
                 } else {
-                    const { data, error } = await supabase
+                    const { error } = await supabase
                         .from('leads')
-                        .insert([leadData])
-                        .select();
-
+                        .insert([leadData]);
                     if (error) throw error;
-                    showAlert('Lead created successfully! 🎉', 'success');
+                    showAlert('Lead created! 🎉', 'success');
                 }
 
                 await loadLeads();
                 closeLeadModal();
             } catch (error) {
-                console.error('Error saving lead:', error);
-                showAlert('Error saving lead: ' + error.message, 'error');
+                showAlert('Error: ' + error.message, 'error');
             }
         }
-
-        // ============================================
-        // MODAL FUNCTIONS
-        // ============================================
 
         function openAddLeadModal() {
             currentLead = null;
@@ -1711,13 +1376,7 @@
         function viewLead(leadId) {
             const lead = leads.find(l => l.id === leadId);
             if (!lead) return;
-            editLead(leadId);
-        }
-
-        function editLead(leadId) {
-            const lead = leads.find(l => l.id === leadId);
-            if (!lead) return;
-
+            
             currentLead = lead;
             document.getElementById('modalTitle').textContent = 'Edit Lead';
             
@@ -1740,34 +1399,44 @@
             document.getElementById('leadModal').classList.add('active');
         }
 
-        // ============================================
-        // SEARCH & FILTER
-        // ============================================
-
-        function filterLeads() {
+        // FIXED: Follow-ups filter
+        function applyFilters() {
+            let filtered = [...leads];
+            
+            if (currentTab === 'follow-ups') {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                filtered = filtered.filter(lead => {
+                    if (!lead.next_follow_up_date) return false;
+                    const followUpDate = new Date(lead.next_follow_up_date);
+                    followUpDate.setHours(0, 0, 0, 0);
+                    return followUpDate >= today;
+                });
+            }
+            
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-            const sourceFilter = document.getElementById('sourceFilter').value;
-
-            const filtered = leads.filter(lead => {
-                const matchesSearch = 
+            if (searchTerm) {
+                filtered = filtered.filter(lead => 
                     lead.first_name.toLowerCase().includes(searchTerm) ||
                     lead.last_name.toLowerCase().includes(searchTerm) ||
                     lead.email.toLowerCase().includes(searchTerm) ||
-                    (lead.company_name && lead.company_name.toLowerCase().includes(searchTerm));
-
-                const matchesStatus = !statusFilter || lead.lead_status === statusFilter;
-                const matchesSource = !sourceFilter || lead.lead_source === sourceFilter;
-
-                return matchesSearch && matchesStatus && matchesSource;
-            });
-
+                    (lead.company_name && lead.company_name.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            const statusFilter = document.getElementById('statusFilter').value;
+            if (statusFilter) {
+                filtered = filtered.filter(lead => lead.lead_status === statusFilter);
+            }
+            
+            const sourceFilter = document.getElementById('sourceFilter').value;
+            if (sourceFilter) {
+                filtered = filtered.filter(lead => lead.lead_source === sourceFilter);
+            }
+            
             renderLeads(filtered);
         }
-
-        // ============================================
-        // UTILITY FUNCTIONS
-        // ============================================
 
         function showAlert(message, type) {
             const alertElement = type === 'success' ? 
@@ -1783,35 +1452,30 @@
         }
 
         function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
+            return new Date(dateString).toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'short', 
                 day: 'numeric' 
             });
         }
 
-        // ============================================
-        // EVENT LISTENERS
-        // ============================================
-
+        // Init
         document.addEventListener('DOMContentLoaded', function() {
             initNetlifyIdentity();
 
-            // Tab switching
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
+                    currentTab = this.getAttribute('data-tab');
+                    applyFilters();
                 });
             });
 
-            // Search and filters
-            document.getElementById('searchInput').addEventListener('input', filterLeads);
-            document.getElementById('statusFilter').addEventListener('change', filterLeads);
-            document.getElementById('sourceFilter').addEventListener('change', filterLeads);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('sourceFilter').addEventListener('change', applyFilters);
 
-            // Close modals when clicking outside
             window.onclick = function(event) {
                 if (event.target.classList.contains('modal')) {
                     event.target.classList.remove('active');
@@ -1819,13 +1483,9 @@
             }
         });
 
-        // Real-time subscription
         supabase
             .channel('leads-changes')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, (payload) => {
-                console.log('Change received!', payload);
-                loadLeads();
-            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, () => loadLeads())
             .subscribe();
     </script>
 </body>
